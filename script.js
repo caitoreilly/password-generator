@@ -186,17 +186,16 @@ function generatePassword() {
       specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
   }
 
-  console.log(userPassword);
+  //loop through all possible characters basde on what was selected by user (true)
+  for (let i = 0; allPossibleCharacters.length; i++) {
+    userPassword =
+      allPossibleCharacters[
+        Math.floor(Math.random() * allPossibleCharacters.length)
+      ];
+  }
 
   var lettersStillNeeded = parseInt(promptPasswordLength) - userPassword.length;
   console.log(lettersStillNeeded);
-
-  //loop through all lowercase characters
-  for (let i = 0; lowercaseLetters.length; i++) {
-    console.log(lowercaseLetters[i]);
-  }
 }
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-
