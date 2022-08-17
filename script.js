@@ -3,10 +3,105 @@ var generateBtn = document.querySelector("#generate");
 console.log(generateBtn);
 
 // Define constants for letters, numbers, and special characters
-const lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
-const uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const numbers = "0123456789";
-const specialCharacters = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+const lowercaseLetters = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+];
+const uppercaseLetters = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
+const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const specialCharacters = [
+  "!",
+  "#",
+  "$",
+  "%",
+  "&",
+  "'",
+  "(",
+  ")",
+  "*",
+  "+",
+  ",",
+  "-",
+  ".",
+  "/",
+  ":",
+  ";",
+  "<",
+  "=",
+  ">",
+  "?",
+  "@",
+  "[",
+  "]",
+  "}",
+  "^",
+  "_",
+  "`",
+  "{",
+  "|",
+  "}",
+  "~",
+];
+
+var allPossibleCharacters = [
+  lowercaseLetters,
+  uppercaseLetters,
+  numbers,
+  specialCharacters,
+];
+
+var userPassword = "";
 
 // Write password to the #password input
 function writePassword() {
@@ -65,7 +160,43 @@ function generatePassword() {
       promptPasswordLength +
       " characters."
   );
-}
 
+  console.log(confirmLowerCase, "confirming lowercase");
+  console.log(confirmUpperCase, "confirming uppercase");
+  console.log(confirmNumbers, "numbers");
+  console.log(confirmSpecialCharacters, "special characters");
+  console.log(promptPasswordLength, "password length");
+
+  if (confirmLowerCase) {
+    userPassword =
+      lowercaseLetters[Math.floor(Math.random() * lowercaseLetters.length)];
+  }
+
+  if (confirmUpperCase) {
+    userPassword +=
+      uppercaseLetters[Math.floor(Math.random() * uppercaseLetters.length)];
+  }
+
+  if (confirmNumbers) {
+    userPassword += numbers[Math.floor(Math.random() * numbers.length)];
+  }
+
+  if (confirmSpecialCharacters) {
+    userPassword +=
+      specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
+  }
+
+  console.log(userPassword);
+
+  var lettersStillNeeded = parseInt(promptPasswordLength) - userPassword.length;
+  console.log(lettersStillNeeded);
+
+  //loop through all lowercase characters
+  for (let i = 0; lowercaseLetters.length; i++) {
+    console.log(lowercaseLetters[i]);
+  }
+}
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
+
