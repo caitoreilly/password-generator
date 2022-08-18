@@ -194,6 +194,12 @@ function getPasswordLength() {
   var length = window.prompt(
     "Please select the number of characters you would like in your password. It must be at least 8 characters and no more than 128 characters."
   );
+
+  if (isNaN(length)) {
+    alert("Please retry!");
+    return false;
+  }
+
   if (length < 8 || length > 128) {
     alert(
       "Please retry! Your password must have at least 8 characters and no more than 128 characters."
