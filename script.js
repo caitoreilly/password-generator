@@ -196,7 +196,9 @@ function getPasswordLength() {
   );
 
   if (isNaN(length)) {
-    alert("Please retry!");
+    alert(
+      "Please retry! You must type a number to generate the length of your password."
+    );
     return false;
   }
 
