@@ -166,11 +166,6 @@ function generatePassword() {
   console.log(confirmSpecialCharacters, "special characters");
   console.log(promptPasswordLength, "password length");
 
-  //loop through all possible characters based on what was selected by user (true)
-  for (let i = 0; allPossibleCharacters.length; i++) {
-    console.log(allPossibleCharacters[i]);
-  }
-
   if (confirmLowerCase) {
     userPassword =
       lowercaseLetters[Math.floor(Math.random() * lowercaseLetters.length)];
@@ -188,6 +183,11 @@ function generatePassword() {
   if (confirmSpecialCharacters) {
     userPassword +=
       specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
+  }
+
+  //loop through all possible characters based on what was selected by user (true)
+  for (let i = 0; i < allPossibleCharacters.length; i++) {
+    console.log(allPossibleCharacters[i]);
   }
 
   var lettersStillNeeded = parseInt(promptPasswordLength) - userPassword.length;
