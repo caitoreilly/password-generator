@@ -94,17 +94,11 @@ const specialCharacters = [
   "~",
 ];
 
-const allPossibleCharacters = lowercaseLetters.concat(
-  uppercaseLetters,
-  numbers,
-  specialCharacters
-);
-
-var userPassword = "";
-
 // Write password to the #password input
 function writePassword() {
+  console.log("writing password");
   var password = generatePassword();
+  console.log(password);
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
@@ -115,50 +109,67 @@ function writePassword() {
 // Alerts pop up to reiterate what user selected.
 
 function generatePassword() {
+  var allPossibleCharacters = [];
+
+  var userPassword = "";
+
   var confirmLowerCase = window.confirm(
     "Would you like lowercase letters in your password?"
   );
   if (confirmLowerCase) {
     alert("Your password will have lowercase letters.");
+    allPossibleCharacters = allPossibleCharacters.concat(lowercaseLetters);
   } else {
     alert("Your password will NOT have lowercase letters.");
   }
+  console.log(allPossibleCharacters);
 
   var confirmUpperCase = window.confirm(
     "Would you like uppercase letters in your password?"
   );
   if (confirmUpperCase) {
     alert("Your password will have uppercase letters.");
+    allPossibleCharacters = allPossibleCharacters.concat(uppercaseLetters);
   } else {
     alert("Your password will NOT have uppercase letters.");
   }
+  console.log(allPossibleCharacters);
 
   var confirmNumbers = window.confirm(
     "Would you like numbers in your password?"
   );
   if (confirmNumbers) {
     alert("Your password will have numbers.");
+    allPossibleCharacters = allPossibleCharacters.concat(numbers);
   } else {
     alert("Your password will NOT have numbers.");
   }
+  console.log(numbers);
 
   var confirmSpecialCharacters = window.confirm(
     "Would you like special characters in your password?"
   );
   if (confirmSpecialCharacters) {
     alert("Your password will have special characters.");
+    allPossibleCharacters = allPossibleCharacters.concat(specialCharacters);
   } else {
     alert("Your password will NOT have special characters.");
   }
+  console.log(allPossibleCharacters);
 
-  var promptPasswordLength = window.prompt(
-    "Please select the number of characters you would like in your password. It must be at least 8 characters and no more than 128 characters."
-  );
-  window.alert(
-    "Your password will have a total of " +
-      promptPasswordLength +
-      " characters."
-  );
+  if (
+    !confirmLowerCase &&
+    !confirmUpperCase &&
+    !confirmNumbers &&
+    !confirmSpecialCharacters
+  ) {
+    alert(
+      "Password cannot be created. You must select 'OK' for at least one criteria."
+    );
+    generatePassword();
+  }
+
+  var promptPasswordLength = getPasswordLength();
 
   console.log(confirmLowerCase, "confirming lowercase");
   console.log(confirmUpperCase, "confirming uppercase");
@@ -166,32 +177,31 @@ function generatePassword() {
   console.log(confirmSpecialCharacters, "special characters");
   console.log(promptPasswordLength, "password length");
 
-  if (confirmLowerCase) {
-    userPassword =
-      lowercaseLetters[Math.floor(Math.random() * lowercaseLetters.length)];
-  }
-
-  if (confirmUpperCase) {
-    userPassword +=
-      uppercaseLetters[Math.floor(Math.random() * uppercaseLetters.length)];
-  }
-
-  if (confirmNumbers) {
-    userPassword += numbers[Math.floor(Math.random() * numbers.length)];
-  }
-
-  if (confirmSpecialCharacters) {
-    userPassword +=
-      specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
-  }
+  console.log(userPassword);
 
   //loop through all possible characters based on what was selected by user (true)
-  for (let i = 0; i < allPossibleCharacters.length; i++) {
-    console.log(allPossibleCharacters[i]);
+  for (let i = 0; i < promptPasswordLength; i++) {
+    var randomIndex = Math.floor(Math.random() * allPossibleCharacters.length);
+    console.log(allPossibleCharacters[randomIndex], randomIndex);
+    userPassword += allPossibleCharacters[randomIndex];
+    console.log(userPassword);
   }
 
-  var lettersStillNeeded = parseInt(promptPasswordLength) - userPassword.length;
-  console.log(lettersStillNeeded);
+  return userPassword;
 }
+
+function getPasswordLength() {
+  var length = window.prompt(
+    "Please select the number of characters you would like in your password. It must be at least 8 characters and no more than 128 characters."
+  );
+  if (length < 8 || length > 128) {
+    alert(
+      "Please retry! Your password must have at least 8 characters and no more than 128 characters."
+    );
+    getPasswordLength();
+  }
+  return length;
+}
+
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
