@@ -190,7 +190,7 @@ function generatePassword() {
 
   return userPassword;
 }
-// Function for password length created to ensure user chooses a qualifying number of characters.
+// Function for password length created to get the password length and ensure user chooses a qualifying number of characters.
 function getPasswordLength() {
   var length = parseInt(
     window.prompt(
