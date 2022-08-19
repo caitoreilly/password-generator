@@ -170,6 +170,7 @@ function generatePassword() {
   }
 
   var promptPasswordLength = getPasswordLength();
+  
 
   console.log(confirmLowerCase, "confirming lowercase");
   console.log(confirmUpperCase, "confirming uppercase");
@@ -191,24 +192,20 @@ function generatePassword() {
 }
 
 function getPasswordLength() {
-  var length = window.prompt(
-    "Please select the number of characters you would like in your password. It must be at least 8 characters and no more than 128 characters."
-  );
-
-  if (isNaN(length)) {
-    alert(
-      "Please retry! You must type a number to generate the length of your password."
+   
+  var length = parseInt(
+      window.prompt(
+        "Please select the number of characters you would like in your password. It must be at least 8 characters and no more than 128 characters."
+      ));
+  
+  while (length < 8 || length > 128 || isNaN(length))
+    length = parseInt(
+      window.prompt(
+        "Please select the number of characters you would like in your password. It must be at least 8 characters and no more than 128 characters."
+      )
     );
-    return false;
-  }
 
-  if (length < 8 || length > 128) {
-    alert(
-      "Please retry! Your password must have at least 8 characters and no more than 128 characters."
-    );
-    getPasswordLength();
-  }
-  return length;
+    return length;
 }
 
 // Add event listener to generate button
