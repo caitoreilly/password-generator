@@ -157,6 +157,7 @@ function generatePassword() {
   }
   console.log(allPossibleCharacters);
 
+  // Set up alert to ensure user selects at least one criteria to make password
   if (
     !confirmLowerCase &&
     !confirmUpperCase &&
@@ -170,7 +171,6 @@ function generatePassword() {
   }
 
   var promptPasswordLength = getPasswordLength();
-  
 
   console.log(confirmLowerCase, "confirming lowercase");
   console.log(confirmUpperCase, "confirming uppercase");
@@ -190,14 +190,17 @@ function generatePassword() {
 
   return userPassword;
 }
-
+// Function for password length created to ensure user chooses a qualifying number of characters.
 function getPasswordLength() {
-   
   var length = parseInt(
-      window.prompt(
-        "Please select the number of characters you would like in your password. It must be at least 8 characters and no more than 128 characters."
-      ));
-  
+    window.prompt(
+      "Please select the number of characters you would like in your password. It must be at least 8 characters and no more than 128 characters."
+    )
+  );
+
+  // While loop created to run through possible variations of characters.
+  // Password must be at least 8 characters & no more than 128 characters.
+  // Password length entered must be a number not a letter so that is where isNaN comes in to make sure it is a number.
   while (length < 8 || length > 128 || isNaN(length))
     length = parseInt(
       window.prompt(
@@ -205,7 +208,7 @@ function getPasswordLength() {
       )
     );
 
-    return length;
+  return length;
 }
 
 // Add event listener to generate button
